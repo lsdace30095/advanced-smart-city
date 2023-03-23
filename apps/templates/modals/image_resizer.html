@@ -1,0 +1,61 @@
+<div class="modal fade" id="imageResizerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Image Resizer</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST" class="pop-up-form__form" id="image_resizer_form" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <label for="id_resolution" class="col-form-label">Choose resolution</label>
+                    <select class="form-select mb-3" name="resolution" id="id_resolution">
+                        <option value="4k" selected>4k</option>
+                        <option value="10x">10x</option>
+                        <option value="Custom">Custom</option>
+                    </select>
+
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center d-none" id="div-custom">
+                        <div class="mb-3 col-6" style="padding-right:5px">
+                            <label for="image_height" class="col-form-label">Height</label>
+                            <input name="image_height" type="number" class="form-control" id="image_height" autocomplete="off"
+                                   value="1920" min="0" max="10000" step="1"/>
+                        </div>
+
+                        <div class="mb-3 col-6"
+                             style="padding-left:5px">
+                            <label for="image_width" class="col-form-label">Width</label>
+                            <input name="image_width" type="number" class="form-control" id="image_width" autocomplete="off"
+                                   value="1080" min="0" max="10000" step="1"/>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" name="image_resizer_form" form="image_resizer_form" data-bs-dismiss="modal">Resize</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+        var resolution = $("select[name='resolution']");
+        var cameraName = $('#div-custom');
+
+        resolution.change(function(){
+            var sourceElement = document.getElementById('id_resolution')
+
+            if(sourceElement[2].selected) {
+                cameraName.removeClass('d-none')
+            } else {
+                cameraName.addClass('d-none')
+            }
+        });
+    });
+
+</script>
